@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       fontFamily: {
         display: 'var(--font-wayfinder)',
+        sans: ["var(--font-geist-sans)", 'sans-serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
