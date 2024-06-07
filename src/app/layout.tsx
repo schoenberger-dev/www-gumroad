@@ -6,7 +6,7 @@ import { GeistSans } from 'geist/font/sans';
 
 export const metadata: Metadata = {
   title: 'gumroad ✧ niklas',
-  description: 'the start of something great',
+  description: 'the beginning of something great',
 };
 
 export default function RootLayout({
@@ -15,7 +15,10 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={[Wayfinder.variable, GeistSans.variable].join(' ')}>
+    <html
+      lang="en"
+      className={[Wayfinder.variable, GeistSans.variable].join(' ')}
+    >
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/pgl2zil.css" />
       </head>

@@ -1,7 +1,7 @@
 export default function Page() {
-    return (
-        <div className="flex flex-col gap-y-1 items-center justify-center min-h-screen">
-            <h1 className="font-headline font-semibold text-4xl">hey,</h1>
-        </div>
-    )
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center gap-y-1">
+      <h1 className="font-headline text-4xl font-semibold">hey,</h1>
+    </div>
+  );
 }
