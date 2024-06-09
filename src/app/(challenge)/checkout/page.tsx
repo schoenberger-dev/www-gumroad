@@ -1,4 +1,5 @@
 import { Checkout } from '@/components/challenge/checkout';
+import { CommandMenu } from '@/components/layout/command-menu';
 import { Button } from '@/components/ui/button';
 
 export default function Page() {
@@ -31,6 +32,7 @@ export default function Page() {
         </Button>
       </header>
       <Checkout cart={cart} />
+      <CommandMenu />
     </div>
   );
 }

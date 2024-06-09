@@ -38,7 +38,7 @@ export function CommandMenu() {
 
   return (
     <>
-      <div className="fixed bottom-1 left-1/2 w-max -translate-x-1/2 rounded-md border border-primary-100 bg-white px-2 py-1 shadow">
+      <div className="fixed bottom-2 left-1/2 w-max -translate-x-1/2 rounded-md border border-primary-100 bg-white px-2 py-1 shadow">
         <div className="text-center text-sm">
           <span>&#8984;</span>+K
         </div>
