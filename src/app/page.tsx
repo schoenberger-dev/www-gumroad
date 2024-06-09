@@ -18,8 +18,8 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-y-1">
       <div className="flex gap-x-4">
-        {cards.map(({ title, description, link }) => (
-          <Link href={link}>
+        {cards.map(({ title, description, link }, index) => (
+          <Link key={index} href={link}>
             <Card className="gumroad-hover flex h-44 w-72 flex-col items-center justify-center rounded-md">
               <CardTitle className="text-2xl">{title}</CardTitle>
               <CardDescription
