@@ -22,7 +22,10 @@ export function Cart({ items }: { items: Product[] }) {
   return (
     <div className="h-max rounded-md border border-foreground bg-white">
       {items.map(({ title, artist, price, qty, image }, index) => (
-        <div className="grid grid-cols-[140px_1fr] border-b border-foreground last:border-none">
+        <div
+          key={index}
+          className="grid grid-cols-[140px_1fr] border-b border-foreground last:border-none"
+        >
           <Image
             src={image}
             width={140}

@@ -35,12 +35,12 @@ export function Payment() {
           <Input
             id="email"
             className="bg-white"
-            value="niklas@schoenberger.dev"
+            defaultValue="niklas@schoenberger.dev"
           />
         </div>
         <div className="flex flex-col gap-y-2">
           <label htmlFor="country">Country</label>
-          <Select id="country" className="w-full" defaultValue="AT">
+          <Select defaultValue="AT">
             <SelectTrigger className="bg-white">
               <SelectValue placeholder="Choose a country" />
             </SelectTrigger>
