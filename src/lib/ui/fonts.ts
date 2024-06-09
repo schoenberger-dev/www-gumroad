@@ -15,5 +15,5 @@ export const Wayfinder = localFont({
   ],
   display: 'swap',
   preload: true,
-  variable: '--font-wayfinder'
+  variable: '--font-wayfinder',
 });
