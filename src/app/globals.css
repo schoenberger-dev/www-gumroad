@@ -111,6 +111,10 @@
   .gumroad-hover {
     @apply relative z-[1] transition-transform duration-300 *:z-[1] before:absolute before:z-0 before:h-full before:w-full before:rounded-md before:bg-white after:absolute after:z-[-1] after:block after:h-full after:w-full after:rounded-md after:bg-foreground after:transition-all after:duration-300 hover:-translate-x-[0.375em] hover:-translate-y-[0.375em] hover:after:translate-x-[0.375em] hover:after:translate-y-[0.375em] hover:after:opacity-100;
   }
+
+  .small-caps {
+    font-variant: all-small-caps;
+  }
 }
 
 body {

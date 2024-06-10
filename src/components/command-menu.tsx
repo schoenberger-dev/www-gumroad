@@ -20,6 +20,7 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from '@/components/ui/command';
+import { Button } from '@/components/ui/button';
 
 export function CommandMenu() {
   const [open, setOpen] = React.useState(false);
@@ -38,9 +39,14 @@ export function CommandMenu() {
 
   return (
     <>
-      <div className="fixed bottom-2 left-1/2 w-max -translate-x-1/2 rounded-md border border-primary-100 bg-white px-2 py-1 shadow">
-        <div className="text-center text-sm">
-          <span>&#8984;</span>+K
+      <div className="fixed bottom-2 left-1/2 w-max -translate-x-1/2">
+        <div className="text-foreground/50" onClick={() => setOpen(true)}>
+          <Button
+            variant="secondary"
+            className="h-max cursor-pointer border-foreground/25 py-1.5 text-xs text-foreground/35 hover:border-primary-300 hover:text-foreground/75"
+          >
+            Press &#8984;+K
+          </Button>
         </div>
       </div>
       <CommandDialog open={open} onOpenChange={setOpen}>

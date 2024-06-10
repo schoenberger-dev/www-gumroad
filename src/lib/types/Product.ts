@@ -1,7 +1,9 @@
 type Product = {
-  title: string;
-  artist: string;
-  price: number;
-  qty: number;
+  id: number;
+  name: string;
   image: string;
+  description: string;
+  price: number;
+  product_category: ProductCategory;
+  artist: Artist;
 };

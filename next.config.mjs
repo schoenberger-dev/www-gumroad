@@ -4,7 +4,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'source.unsplash.com',
+        hostname: 'api-gumroad.schoenberger.dev',
+      },
+      {
+        protocol: 'http',
+        hostname: '[::1]',
       },
     ],
   },

@@ -11,7 +11,7 @@ export default function Home() {
     {
       title: 'Challenge',
       description: 'The application challenge.',
-      link: '/checkout',
+      link: '/challenge/discover',
     },
   ];
 

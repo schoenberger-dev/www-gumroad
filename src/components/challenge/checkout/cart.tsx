@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { imageUrl } from '@/lib/utils';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
@@ -21,13 +22,13 @@ export function Cart({ items }: { items: Product[] }) {
 
   return (
     <div className="h-max rounded-md border border-foreground bg-white">
-      {items.map(({ title, artist, price, qty, image }, index) => (
+      {items.map(({ name, artist, price, image, product_category }, index) => (
         <div
           key={index}
           className="grid grid-cols-[140px_1fr] border-b border-foreground last:border-none"
         >
           <Image
-            src={image}
+            src={imageUrl(image)}
             width={140}
             height={140}
             alt={`Product Image ${index}`}
@@ -37,17 +38,17 @@ export function Cart({ items }: { items: Product[] }) {
             <div className="flex justify-between">
               <div className="flex flex-col">
                 <a href="">
-                  <strong className="underline">{title}</strong>
+                  <strong className="underline">{name}</strong>
                 </a>
                 <a href="">
-                  <span className="text-sm underline">{artist}</span>
+                  <span className="text-sm underline">{artist.name}</span>
                 </a>
               </div>
               <div>US${price}</div>
             </div>
             <div className="flex justify-between text-sm">
               <div>
-                <strong>Qty:</strong> <span>{qty}</span>
+                <strong>Qty:</strong> <span>{1}</span>
               </div>
               <a href="" className="underline">
                 Remove
