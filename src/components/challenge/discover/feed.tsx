@@ -22,7 +22,7 @@ export function Feed({ products }: { products: Product[] }) {
 
   return (
     <section className="site-px md:py-16">
-      <div className="grid-cols-feed grid gap-4">
+      <div className="grid grid-cols-feed gap-4">
         {products.map((product) => (
           <Card
             key={product.id}
