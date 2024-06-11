@@ -7,7 +7,10 @@ export default class API {
       options,
     );
 
-    return fetch(resourceUrl, init);
+    return fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/${resourceUrl}`,
+      init,
+    );
   }
 
   static async POST(
@@ -19,6 +22,9 @@ export default class API {
       options,
     );
 
-    return fetch(resourceUrl, init);
+    return fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/${resourceUrl}`,
+      init,
+    );
   }
 }
