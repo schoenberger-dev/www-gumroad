@@ -1,5 +1,6 @@
 'use client';
 
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,13 +11,14 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { imageUrl } from '@/lib/utils';
-import { useStore } from '@/providers/store-provider';
+import { useCartStore } from '@/providers/cart-store-provider';
 import { Plus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Avvvatars from 'avvvatars-react';
 
 export function Feed({ products }: { products: Product[] }) {
-  const { addToCart } = useStore();
+  const { addToCart } = useCartStore((state) => state);
 
   return (
     <section className="site-px md:py-16">
@@ -38,26 +40,47 @@ export function Feed({ products }: { products: Product[] }) {
                 className="absolute left-0 top-0 h-full w-full rounded-t-md object-cover"
               />
             </Link>
-            <CardHeader>
-              <CardTitle className="text-lg">{product.name}</CardTitle>
-              <CardDescription>{product.description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center gap-x-1.5">
-                <div className="block h-5 w-5 rounded-full border border-neutral-500 bg-primary"></div>
-                <div className="text-sm text-neutral-400">
-                  {product.artist.name}
-                </div>
-              </div>
+            <Link
+              href={`/challenge/${product.artist.username}/${product.id}`}
+              className="p-4"
+            >
+              <CardHeader className="space-y-0 p-0">
+                <CardTitle className="text-lg font-medium">
+                  {product.name}
+                </CardTitle>
+                <CardDescription className="mt-0">
+                  {product.description}
+                </CardDescription>
+              </CardHeader>
+            </Link>
+            <CardContent className="p-4 pt-0">
+              <Link
+                href={`/challenge/artist/${product.artist.username}`}
+                className="group inline-flex items-center gap-x-1.5 rounded-md border border-transparent px-1 py-0.5 pl-0 text-sm text-muted-foreground transition-all duration-300 hover:text-foreground hover:underline"
+              >
+                <Avvvatars
+                  style="shape"
+                  value={product.artist.name}
+                  size={22}
+                  borderColor="#737373"
+                  border
+                  borderSize={1}
+                />
+                {product.artist.name}
+              </Link>
             </CardContent>
-            <CardFooter>
-              <Button
+            <CardFooter className="border-t border-foreground p-4">
+              <Badge
                 variant="secondary"
-                size="icon"
-                className="ml-auto h-8 w-8 hover:bg-primary"
+                className="h-full rounded-none border-r-0 border-foreground"
+              >
+                €{product.price}
+              </Badge>
+              <Button
+                className="w-full rounded-none border border-l-0 border-foreground bg-foreground text-background hover:bg-primary hover:text-primary-foreground"
                 onClick={() => addToCart(product)}
               >
-                <Plus className="h-4 w-4" />
+                Add to cart
               </Button>
             </CardFooter>
           </Card>

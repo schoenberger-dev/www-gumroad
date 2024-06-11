@@ -3,32 +3,37 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { imageUrl } from '@/lib/utils';
+import { useCartStore } from '@/providers/cart-store-provider';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-export function Cart({ items }: { items: Product[] }) {
-  const [subtotal, setSubtotal] = useState<number>(0);
-  const [total, setTotal] = useState<number>(0);
-  const [vat, setVat] = useState<number>(0);
+export function Cart({ products }: { products: Product[] }) {
+  const [subtotal, setSubtotal] = useState<string>('0');
+  const [total, setTotal] = useState<string>('0');
+  const [vat, setVat] = useState<string>('0');
+
+  const { removeFromCart } = useCartStore((state) => state);
 
   useEffect(() => {
-    const subtotal = items.reduce((acc, item) => acc + item.price, 0);
-    setSubtotal(subtotal);
+    const subtotal = products.reduce((acc, item) => acc + item.price, 0);
+    setSubtotal(subtotal.toFixed(2));
     const vat = subtotal * 0.2;
-    setVat(vat);
+    setVat(vat.toFixed(2));
     const total = subtotal * 1.2;
-    setTotal(total);
-  }, [items]);
+    setTotal(total.toFixed(2));
+  }, [products]);
+
+  console.log(products);
 
   return (
     <div className="h-max rounded-md border border-foreground bg-white">
-      {items.map(({ name, artist, price, image, product_category }, index) => (
+      {products.map((product, index) => (
         <div
           key={index}
           className="grid grid-cols-[140px_1fr] border-b border-foreground last:border-none"
         >
           <Image
-            src={imageUrl(image)}
+            src={imageUrl(product.image)}
             width={140}
             height={140}
             alt={`Product Image ${index}`}
@@ -38,21 +43,27 @@ export function Cart({ items }: { items: Product[] }) {
             <div className="flex justify-between">
               <div className="flex flex-col">
                 <a href="">
-                  <strong className="underline">{name}</strong>
+                  <strong className="underline">{product.name}</strong>
                 </a>
                 <a href="">
-                  <span className="text-sm underline">{artist.name}</span>
+                  <span className="text-sm underline">
+                    {product.artist.name}
+                  </span>
                 </a>
               </div>
-              <div>US${price}</div>
+              <div>US${product.price}</div>
             </div>
-            <div className="flex justify-between text-sm">
+            <div className="flex items-center justify-between text-sm">
               <div>
                 <strong>Qty:</strong> <span>{1}</span>
               </div>
-              <a href="" className="underline">
+              <Button
+                variant="link"
+                onClick={() => removeFromCart(product)}
+                className="h-max p-1 text-foreground underline"
+              >
                 Remove
-              </a>
+              </Button>
             </div>
           </div>
         </div>

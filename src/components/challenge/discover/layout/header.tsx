@@ -1,14 +1,15 @@
 'use client';
 
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { useStore } from '@/providers/store-provider';
+import { useCartStore } from '@/providers/cart-store-provider';
 import { Search, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 
 export function Header() {
-  const { cart } = useStore();
+  const { cart } = useCartStore((state) => state);
+  console.log(cart);
 
   return (
     <header className="site-px grid py-6 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-4">

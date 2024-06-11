@@ -37,6 +37,9 @@ const config = {
       gridTemplateColumns: {
         feed: 'repeat(auto-fill, minmax(max(min(12rem, 100%), 20% - 1rem), 1fr));',
       },
+      transitionDuration: {
+        250: '250ms',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
