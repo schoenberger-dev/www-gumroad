@@ -7,18 +7,18 @@ export default class API {
       options,
     );
 
-    return await fetch(resourceUrl, init);
+    return fetch(resourceUrl, init);
   }
 
-  static async POST(url: string | URL | Request, options?: RequestInit) {
+  static async POST(
+    resourceUrl: string | URL | Request,
+    options?: RequestInit,
+  ) {
     const init = Object.assign(
       { method: 'POST', headers: { Authorization: `Bearer ${API.token}` } },
       options,
     );
 
-    return await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}${url}`,
-      init,
-    );
+    return fetch(resourceUrl, init);
   }
 }
