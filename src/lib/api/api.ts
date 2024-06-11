@@ -15,7 +15,7 @@ export default class API {
     options?: RequestInit,
   ) {
     const init = Object.assign(
-      { method: 'POST', headers: { Authorization: `Bearer ${API.token}` } },
+      { method: 'POST', headers: { Authorization: API.token } },
       options,
     );
 
