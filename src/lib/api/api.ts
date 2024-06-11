@@ -7,10 +7,7 @@ export default class API {
       options,
     );
 
-    return await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/${resourceUrl}`,
-      init,
-    );
+    return await fetch(resourceUrl, init);
   }
 
   static async POST(url: string | URL | Request, options?: RequestInit) {
