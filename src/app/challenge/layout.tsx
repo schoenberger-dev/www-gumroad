@@ -1,4 +1,4 @@
-import { CartStoreProvider } from '@/providers/cart-store-provider';
+import StoreProvider from '@/providers/store-provider';
 import { ReactNode } from 'react';
 
 export default function ChallengeLayout({
@@ -6,5 +6,5 @@ export default function ChallengeLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  return <CartStoreProvider>{children}</CartStoreProvider>;
+  return <StoreProvider>{children}</StoreProvider>;
 }

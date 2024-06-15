@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'http',
         hostname: '[::1]',
       },
+      {
+        protocol: 'https',
+        hostname: 'assets.gumroad.com',
+      },
     ],
   },
 };

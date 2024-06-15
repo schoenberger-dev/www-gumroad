@@ -1,4 +1,4 @@
-export default class API {
+export class API {
   static token = process.env.API_TOKEN;
 
   static async GET(resourceUrl: string | URL | Request, options?: RequestInit) {

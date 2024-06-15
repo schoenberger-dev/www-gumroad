@@ -1,15 +1,38 @@
 'use client';
 
 import { useCartStore } from '@/providers/cart-store-provider';
-import { Cart, Payment } from './';
+import { useEffect, useState } from 'react';
+import { Cart, CartSkeleton } from './cart';
+import { Payment, PaymentSkeleton } from './payment';
+import { EmptyCheckout } from './components';
 
-export function Checkout() {
+export function Checkout({ initialCount }: { initialCount: number }) {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { cart } = useCartStore((state) => state);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [cart]);
+
+  const Loading = () => (
+    <>
+      <CartSkeleton count={initialCount ?? cart.length} />
+      <PaymentSkeleton />
+    </>
+  );
 
   return (
     <main className="site-px grid auto-cols-[minmax(26rem,1fr)] grid-flow-col grid-cols-[2fr] gap-x-16 py-16">
-      <Cart products={cart} />
-      <Payment />
+      {isLoading && initialCount > 0 ? (
+        <Loading />
+      ) : cart.length <= 0 ? (
+        <EmptyCheckout />
+      ) : (
+        <>
+          <Cart />
+          <Payment />
+        </>
+      )}
     </main>
   );
 }

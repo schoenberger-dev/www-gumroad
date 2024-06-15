@@ -19,6 +19,7 @@ type ProductCategoryType =
   | 'other';
 
 type ProductCategory = {
+  id: number;
   name: string;
   slug: ProductCategoryType;
   identifier: number;

@@ -33,6 +33,7 @@ const config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        loading: 'spin 1.5s cubic-bezier(0.68, -0.6, 0.32, 1.6) infinite',
       },
       gridTemplateColumns: {
         feed: 'repeat(auto-fill, minmax(max(min(12rem, 100%), 20% - 1rem), 1fr));',

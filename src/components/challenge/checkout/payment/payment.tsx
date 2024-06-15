@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -7,11 +9,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useCartStore } from '@/providers/cart-store-provider';
 import { CreditCard } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export function Payment() {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { cart } = useCartStore((state) => state);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [cart]);
+
+  if (isLoading) return <div>Loading...</div>;
+
   return (
-    <aside className="rounded-md border border-foreground bg-white">
+    <aside className="h-max rounded-md border border-foreground bg-white">
       <header className="border-b border-foreground p-4">
         <div className="font-semibold">Pay with</div>
         <div className="mt-4">
