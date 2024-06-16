@@ -9,6 +9,9 @@ import { imageUrl } from '@/lib/utils';
 import { useCartStore } from '@/providers/cart-store-provider';
 import Image from 'next/image';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
+import easings from '@/lib/ui/easings';
+import { AnimatedNumber } from '@/components/partials';
 
 export function CartProduct({
   product,
@@ -25,8 +28,29 @@ export function CartProduct({
   );
 
   const saveQuantity = () => {
-    setQuantity(product, updatedQuantity);
+    if (updatedQuantity === 0) deleteFromCart(product);
+    else setQuantity(product, updatedQuantity);
     setQuantityIsOpen(false);
+  };
+
+  const animationTransition = {
+    duration: 0.5,
+    delay: 0,
+    ease: easings.OutQuad,
+  };
+
+  const animationVariants = {
+    initial: {
+      filter: 'blur(4px)',
+      opacity: 0,
+      transition: animationTransition,
+    },
+    animate: {
+      filter: 'blur(0px)',
+      opacity: 1,
+      transition: animationTransition,
+    },
+    exit: { filter: 'blur(4px)', opacity: 0, transition: animationTransition },
   };
 
   return (
@@ -48,7 +72,16 @@ export function CartProduct({
               <span className="text-sm underline">{product.artist.name}</span>
             </a>
           </div>
-          <div>€{product.price * product.quantity}</div>
+          <motion.div
+            key={`${product.price}-${product.quantity}`}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={animationVariants}
+            className="flex items-center"
+          >
+            € {product.price * product.quantity}
+          </motion.div>
         </div>
         <div className="flex items-center justify-between text-sm">
           <div>
@@ -59,8 +92,13 @@ export function CartProduct({
               open={quantityIsOpen}
               onOpenChange={() => setQuantityIsOpen(!quantityIsOpen)}
             >
-              <PopoverTrigger className="before:-translate-x-1/27 relative h-max rounded-md p-1 text-foreground underline before:absolute before:-bottom-1 before:left-[calc(50%-0.25rem)] before:border-[6px] before:border-t-0 before:border-transparent before:border-b-black before:opacity-0 before:transition-opacity before:duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring data-[state=open]:before:opacity-100">
-                Configure
+              <PopoverTrigger asChild>
+                <Button
+                  variant="link"
+                  className="relative h-max rounded-none p-1 text-foreground underline hover:bg-background hover:decoration-primary"
+                >
+                  Configure
+                </Button>
               </PopoverTrigger>
               <PopoverContent align="start">
                 <label htmlFor={`quantity-${product.id}`}>Quantity</label>
@@ -82,7 +120,7 @@ export function CartProduct({
             <Button
               variant="link"
               onClick={() => deleteFromCart(product)}
-              className="h-max p-1 text-foreground underline"
+              className="h-max rounded-none p-1 text-foreground underline hover:bg-background hover:decoration-primary"
             >
               Remove
             </Button>

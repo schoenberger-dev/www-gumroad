@@ -136,3 +136,30 @@ body {
 .gumroad-hover\:primary {
   @apply gumroad-hover border border-foreground text-primary-foreground before:bg-primary;
 }
+
+.ticker-view {
+  height: max-content;
+  margin: auto;
+  display: flex;
+  flex-direction: row-reverse;
+  overflow: hidden;
+  position: relative;
+}
+
+.number-placeholder {
+  visibility: hidden;
+}
+
+.ticker-column-container {
+  position: relative;
+}
+
+.ticker-column {
+  position: absolute;
+  height: 1000%;
+  bottom: 0;
+}
+
+.ticker-digit {
+  height: 10%;
+}

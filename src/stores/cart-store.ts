@@ -9,7 +9,6 @@ export type CartState = {
 export type CartActions = {
   addToCart: (product: Product) => void;
   setQuantity: (product: Product, quantity: number) => void;
-  removeFromCart: (product: Product) => void;
   deleteFromCart: (product: Product) => void;
 };
 
@@ -54,22 +53,6 @@ export const createCartStore = (initState: CartState = defaultInitState) => {
               item.id === product.id ? { ...item, quantity } : item,
             ),
           })),
-        removeFromCart: (product) =>
-          set((state) => {
-            const cart = [...state.cart];
-            const productIndex = cart.findIndex(
-              (item) => item.id === product.id,
-            );
-            if (productIndex !== -1) {
-              cart[productIndex].quantity -= 1;
-              if (cart[productIndex].quantity === 0) {
-                cart.splice(productIndex, 1);
-              }
-            }
-
-            updateCartCountCookie(cart.length);
-            return { cart: [...cart] };
-          }),
         deleteFromCart: (product) =>
           set((state) => {
             const cart = [...state.cart];

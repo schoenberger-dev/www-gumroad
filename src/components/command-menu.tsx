@@ -39,7 +39,7 @@ export function CommandMenu() {
 
   return (
     <>
-      <div className="fixed bottom-2 left-1/2 w-max -translate-x-1/2">
+      <div className="fixed bottom-4 left-4 w-max">
         <div className="text-foreground/50" onClick={() => setOpen(true)}>
           <Button
             variant="secondary"
