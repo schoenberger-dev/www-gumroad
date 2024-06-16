@@ -21,9 +21,11 @@ import {
   CommandShortcut,
 } from '@/components/ui/command';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/navigation';
 
 export function CommandMenu() {
   const [open, setOpen] = React.useState(false);
+  const router = useRouter();
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -54,9 +56,9 @@ export function CommandMenu() {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Suggestions">
-            <CommandItem>
+            <CommandItem onSelect={() => router.push('/challenge/login')}>
               <Calendar className="mr-2 h-4 w-4" />
-              <span>Calendar</span>
+              <span>Login</span>
             </CommandItem>
             <CommandItem>
               <Smile className="mr-2 h-4 w-4" />

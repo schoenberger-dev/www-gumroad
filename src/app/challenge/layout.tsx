@@ -1,3 +1,6 @@
+'use client';
+
+import { AuthBadge } from '@/components/challenge/auth';
 import StoreProvider from '@/providers/store-provider';
 import { ReactNode } from 'react';
 
@@ -6,5 +9,10 @@ export default function ChallengeLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  return <StoreProvider>{children}</StoreProvider>;
+  return (
+    <StoreProvider>
+      {children}
+      <AuthBadge />
+    </StoreProvider>
+  );
 }

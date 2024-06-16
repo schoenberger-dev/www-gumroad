@@ -1,4 +1,5 @@
 import { Checkout } from '@/components/challenge/checkout';
+import { Header } from '@/components/challenge/checkout/layout';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { cookies } from 'next/headers';
@@ -9,18 +10,7 @@ export default function Page() {
 
   return (
     <div className="flex flex-col gap-y-1">
-      <header className="site-px flex items-center justify-between border-b border-foreground py-8">
-        <h1 className="text-4xl">Checkout</h1>
-        <Link
-          href="/challenge/discover"
-          className={cn(
-            buttonVariants({ variant: 'secondary' }),
-            'gumroad-hover before:bg-background',
-          )}
-        >
-          <span>Continue shopping</span>
-        </Link>
-      </header>
+      <Header />
       <Checkout initialCount={cartCount} />
     </div>
   );
