@@ -1,14 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from 'lucide-react';
+import { LogIn, CreditCard, Settings, User, LogOut } from 'lucide-react';
 
 import {
   CommandDialog,
@@ -22,8 +15,10 @@ import {
 } from '@/components/ui/command';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/providers/auth-store-provider';
 
 export function CommandMenu() {
+  const { token, deleteToken } = useAuthStore((state) => state);
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
 
@@ -41,11 +36,11 @@ export function CommandMenu() {
 
   return (
     <>
-      <div className="fixed bottom-4 left-4 w-max">
+      <div className="fixed bottom-4 right-4 w-max">
         <div className="text-foreground/50" onClick={() => setOpen(true)}>
           <Button
             variant="secondary"
-            className="h-max cursor-pointer border-foreground/25 py-1.5 text-xs text-foreground/35 hover:border-primary-300 hover:text-foreground/75"
+            className="h-max cursor-pointer border-foreground/10 py-1.5 text-xs text-foreground/35 hover:border-primary-300 hover:text-foreground/75"
           >
             Press &#8984;+K
           </Button>
@@ -55,36 +50,51 @@ export function CommandMenu() {
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Suggestions">
-            <CommandItem onSelect={() => router.push('/challenge/login')}>
-              <Calendar className="mr-2 h-4 w-4" />
-              <span>Login</span>
-            </CommandItem>
-            <CommandItem>
-              <Smile className="mr-2 h-4 w-4" />
-              <span>Search Emoji</span>
-            </CommandItem>
-            <CommandItem>
-              <Calculator className="mr-2 h-4 w-4" />
-              <span>Calculator</span>
-            </CommandItem>
+          <CommandGroup heading="Auth">
+            {!!token ? (
+              <CommandItem
+                onSelect={() => {
+                  deleteToken();
+                  setOpen(false);
+                  // TODO: toast.success({ message: 'Successfully logged out' })
+                }}
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Logout</span>
+              </CommandItem>
+            ) : (
+              <CommandItem
+                onSelect={() => {
+                  router.push('/challenge/login');
+                  setOpen(false);
+                }}
+              >
+                <LogIn className="mr-2 h-4 w-4" />
+                <span>Login</span>
+              </CommandItem>
+            )}
           </CommandGroup>
           <CommandSeparator />
-          <CommandGroup heading="Settings">
-            <CommandItem>
+          <CommandGroup heading="Pages">
+            <CommandItem
+              onSelect={() => {
+                router.push('/challenge/discover');
+                setOpen(false);
+              }}
+            >
               <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
-              <CommandShortcut>⌘P</CommandShortcut>
+              <span>Discover</span>
+              {/* <CommandShortcut>⌘P</CommandShortcut> */}
             </CommandItem>
-            <CommandItem>
+            <CommandItem
+              onSelect={() => {
+                router.push('/challenge/checkout');
+                setOpen(false);
+              }}
+            >
               <CreditCard className="mr-2 h-4 w-4" />
-              <span>Billing</span>
-              <CommandShortcut>⌘B</CommandShortcut>
-            </CommandItem>
-            <CommandItem>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>Settings</span>
-              <CommandShortcut>⌘S</CommandShortcut>
+              <span>Checkout</span>
+              {/* <CommandShortcut>⌘B</CommandShortcut> */}
             </CommandItem>
           </CommandGroup>
         </CommandList>

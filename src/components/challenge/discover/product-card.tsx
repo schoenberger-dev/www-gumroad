@@ -15,7 +15,7 @@ import Avvvatars from 'avvvatars-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useCartStore } from '@/providers/cart-store-provider';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import easings from '@/lib/ui/easings';
 
 export function ProductCard({
@@ -29,15 +29,13 @@ export function ProductCard({
 }) {
   const { addToCart } = useCartStore((state) => state);
 
-  const MotionCard = motion(Card);
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 6, filter: 'blur(2px)' }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       transition={{
-        duration: 0.6,
-        filter: { duration: 0.4, delay: initialDelay + index * 0.1 },
+        duration: 0.8,
+        filter: { duration: 0.5, delay: initialDelay + index * 0.1 },
         opacity: { duration: 0.6, delay: initialDelay + index * 0.1 },
         delay: initialDelay + index * 0.1,
         ease: easings.OutExpo,

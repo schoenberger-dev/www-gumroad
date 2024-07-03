@@ -1,29 +1,28 @@
 import { createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
-import Cookies from 'js-cookie';
+import { updateCartCountCookie } from './helpers';
 
 export type CartState = {
   cart: CartProduct[];
+  tips: { artist: string; amount: string }[];
 };
 
 export type CartActions = {
   addToCart: (product: Product) => void;
   setQuantity: (product: Product, quantity: number) => void;
   deleteFromCart: (product: Product) => void;
+  setArtistTip: (artist: string, amount: string) => void;
 };
 
 export type CartStore = CartState & CartActions;
 
 export const initCartStore = (): CartState => {
-  return { cart: [] };
+  return { cart: [], tips: [] };
 };
 
 export const defaultInitState: CartState = {
   cart: [],
-};
-
-const updateCartCountCookie = (count: number) => {
-  Cookies.set('cart_count', JSON.stringify(count), { expires: 7 });
+  tips: [],
 };
 
 export const createCartStore = (initState: CartState = defaultInitState) => {
@@ -59,6 +58,15 @@ export const createCartStore = (initState: CartState = defaultInitState) => {
             const updatedCart = cart.filter((item) => item.id !== product.id);
             updateCartCountCookie(updatedCart.length);
             return { cart: [...updatedCart] };
+          }),
+        setArtistTip: (artist, amount) =>
+          set((state) => {
+            console.log(artist, amount);
+            return {
+              tips: state.tips.map((item) =>
+                item.artist === artist ? { artist, amount } : item,
+              ),
+            };
           }),
       }),
       { name: 'cart' },

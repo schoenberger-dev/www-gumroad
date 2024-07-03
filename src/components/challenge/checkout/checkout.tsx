@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Cart, CartSkeleton } from './cart';
 import { Payment, PaymentSkeleton } from './payment';
 import { EmptyCheckout } from './components';
+import { updateCartCountCookie } from '@/stores/helpers';
 
 export function Checkout({ initialCount }: { initialCount: number }) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -12,6 +13,7 @@ export function Checkout({ initialCount }: { initialCount: number }) {
 
   useEffect(() => {
     setIsLoading(false);
+    if (cart.length > 0) updateCartCountCookie(cart.length);
   }, [cart]);
 
   const Loading = () => (

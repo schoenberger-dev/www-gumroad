@@ -1,6 +1,6 @@
 import { LoginForm } from '@/components/challenge/auth';
 
-export async function login(data: LoginForm): Promise<{ token: string }> {
+export async function signIn(data: LoginForm): Promise<{ token: string }> {
   try {
     const { username, password } = data;
     console.log(username, password);

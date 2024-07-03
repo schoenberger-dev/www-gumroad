@@ -8,6 +8,7 @@ export type AuthState = {
 
 export type AuthActions = {
   saveToken: (query: string) => void;
+  deleteToken: () => void;
 };
 
 export type AuthStore = AuthState & AuthActions;
@@ -20,8 +21,9 @@ export const defaultInitState: AuthState = {
   token: null,
 };
 
-const updateTokenCookie = (token: string) => {
-  Cookies.set('token', JSON.stringify(token), { expires: 7 });
+const updateTokenCookie = (token?: string) => {
+  if (!token) Cookies.remove('token');
+  else Cookies.set('token', JSON.stringify(token), { expires: 7 });
 };
 
 export const createAuthStore = (initState: AuthState = defaultInitState) => {
@@ -33,6 +35,11 @@ export const createAuthStore = (initState: AuthState = defaultInitState) => {
           set(() => {
             updateTokenCookie(token);
             return { token };
+          }),
+        deleteToken: () =>
+          set(() => {
+            updateTokenCookie();
+            return { token: null };
           }),
       }),
       { name: 'auth-store' },

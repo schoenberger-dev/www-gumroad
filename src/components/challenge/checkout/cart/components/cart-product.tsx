@@ -54,16 +54,15 @@ export function CartProduct({
   };
 
   return (
-    <div className="grid grid-cols-[140px_1fr] border-b border-foreground last:border-none">
+    <div className="grid grid-cols-[140px_1fr] gap-x-4">
       <Image
         src={imageUrl(product.image)}
         width={140}
         height={140}
         alt={`${product.name} Product Image`}
-        className={`${index === 0 ? 'rounded-tl-sm' : ''} border-r border-foreground`}
       />
-      <div className="flex flex-col justify-between p-4">
-        <div className="flex justify-between">
+      <div className="flex flex-col justify-between py-4 pr-0">
+        <div className="flex items-start justify-between">
           <div className="flex flex-col">
             <a href="">
               <strong className="underline">{product.name}</strong>

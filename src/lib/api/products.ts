@@ -1,7 +1,5 @@
 'use server';
 
-import { API } from './api';
-
 export async function getAll(): Promise<Product[]> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/products`,
