@@ -33,12 +33,12 @@ export function ProductCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 5, filter: 'blur(2px)' }}
+      initial={{ opacity: 0, y: 8, filter: 'blur(2px)' }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       transition={{
-        duration: 0.8,
         filter: { duration: 0.5, delay: initialDelay + index * 0.1 },
         opacity: { duration: 0.5, delay: initialDelay + index * 0.1 },
+        y: { duration: 0.4, delay: initialDelay + index * 0.1 },
         delay: initialDelay + index * 0.1,
         ease: easings.OutExpo,
       }}
