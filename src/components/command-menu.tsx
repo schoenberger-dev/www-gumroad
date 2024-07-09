@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import { LogIn, CreditCard, Settings, User, LogOut } from 'lucide-react';
 
@@ -15,10 +13,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/providers/auth-store-provider';
-import { useMediaQuery } from '@uidotdev/usehooks';
 
 export function CommandMenu() {
-  const isTablet = useMediaQuery('only screen and (min-width : 768px)');
   const { token, deleteToken } = useAuthStore((state) => state);
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
@@ -43,7 +39,8 @@ export function CommandMenu() {
             variant="secondary"
             className="h-max cursor-pointer border-foreground/20 py-1.5 text-xs text-foreground/75 hover:border-primary-300"
           >
-            {isTablet ? <span>Press &#8984;+K</span> : 'Actions'}
+            <span className="hidden md:block">Press &#8984;+K</span>
+            <span className="block md:hidden">Actions</span>
           </Button>
         </div>
       </div>
