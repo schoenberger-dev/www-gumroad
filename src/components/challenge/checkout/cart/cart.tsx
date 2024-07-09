@@ -6,14 +6,13 @@ import { useEffect, useState } from 'react';
 import { CartProductGroup } from './components';
 import { useCartStore } from '@/providers/cart-store-provider';
 import { AnimatedNumber } from '@/components/partials';
-import {
-  TooltipProvider,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from '@/components/ui/tooltip';
 import { Info } from 'lucide-react';
 import { useMediaQuery } from '@uidotdev/usehooks';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 
 export function Cart() {
   const isTablet = useMediaQuery('only screen and (min-width : 768px)');
@@ -83,19 +82,18 @@ export function Cart() {
           label="Tips"
           value={tipsTotal}
           tooltip={
-            <TooltipProvider>
-              <Tooltip
-                open={tipInfoOpen}
-                onOpenChange={setTipInfoOpen}
-                delayDuration={300}
-              >
-                <TooltipTrigger
+            parseFloat(tipsTotal) > 0 && (
+              <Popover open={tipInfoOpen} onOpenChange={setTipInfoOpen}>
+                <PopoverTrigger
                   className="relative -top-0.5"
-                  onClick={() => isTablet && setTipInfoOpen(!tipInfoOpen)}
+                  onMouseEnter={() =>
+                    isTablet && setTimeout(() => setTipInfoOpen(true), 300)
+                  }
+                  onMouseLeave={() => isTablet && setTipInfoOpen(false)}
                 >
                   <Info className="h-4 w-4" />
-                </TooltipTrigger>
-                <TooltipContent>
+                </PopoverTrigger>
+                <PopoverContent className="w-max p-3" side="top">
                   <div className="space-y-1 text-sm">
                     {tips.map((i) => (
                       <div
@@ -107,9 +105,9 @@ export function Cart() {
                       </div>
                     ))}
                   </div>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+                </PopoverContent>
+              </Popover>
+            )
           }
         />
         <div className="flex justify-between gap-x-4 px-4">
