@@ -43,7 +43,7 @@ export function ProductCard({
         ease: easings.OutExpo,
       }}
     >
-      <Card className="gumroad-hover z-[1] grid h-full grid-rows-[auto_1fr_auto] border border-foreground p-0">
+      <Card className="md:gumroad-hover z-[1] grid h-full grid-rows-[auto_1fr_auto] border border-foreground p-0">
         <Link
           href={`/challenge/${product.artist.username}/${product.id}`}
           className="relative aspect-square"
