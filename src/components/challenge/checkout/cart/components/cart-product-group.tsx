@@ -3,11 +3,6 @@ import { CartProduct } from './cart-product';
 import { AnimatedNumber } from '@/components/partials';
 import { Tip } from './tip';
 import { useCartStore } from '@/providers/cart-store-provider';
-import { Collapsible } from '@radix-ui/react-collapsible';
-import {
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible';
 import { HandCoins, PiggyBank, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
