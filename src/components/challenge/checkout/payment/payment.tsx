@@ -9,6 +9,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import {
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+  Tooltip,
+} from '@/components/ui/tooltip';
 import { useCartStore } from '@/providers/cart-store-provider';
 import { CreditCard } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -30,7 +36,16 @@ export function Payment() {
         <div className="mt-4">
           <div className="flex flex-wrap justify-between">
             <label htmlFor="cc">Card information</label>
-            <div className="underline">Use a different card?</div>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger className="underline">
+                  Use a different card?
+                </TooltipTrigger>
+                <TooltipContent>
+                  Skipped — irrelevant for the challenge
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <div className="mt-2 flex w-full items-center justify-between rounded-md border border-foreground bg-background px-4 py-3">
               <div className="flex gap-x-2">
                 <CreditCard className="h-5 w-5 opacity-50" />

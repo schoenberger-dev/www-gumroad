@@ -88,6 +88,7 @@ export function Cart() {
                   <div className="space-y-1 text-sm">
                     {tips.map((i) => (
                       <div
+                        key={i.artist.username}
                         className="flex w-full cursor-pointer items-center justify-between gap-x-2"
                         onClick={() => scrollToArtist(i.artist.username)}
                       >
