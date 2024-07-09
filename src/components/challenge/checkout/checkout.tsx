@@ -24,7 +24,7 @@ export function Checkout({ initialCount }: { initialCount: number }) {
   );
 
   return (
-    <main className="site-px grid auto-cols-[minmax(26rem,1fr)] grid-flow-col grid-cols-[2fr] gap-x-16 py-16">
+    <main className="site-px grid gap-x-16 gap-y-10 py-4 md:auto-cols-[minmax(26rem,1fr)] md:grid-flow-col md:grid-cols-[2fr] md:py-16">
       {isLoading && initialCount > 0 ? (
         <Loading />
       ) : cart.length <= 0 ? (

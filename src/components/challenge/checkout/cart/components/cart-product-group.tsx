@@ -44,18 +44,18 @@ export function CartProductGroup({ artist, items, index }: Props) {
     <div
       id={artist.username}
       key={artist.username}
-      className="flex flex-col space-y-3 border-b border-foreground/70 py-4"
+      className="flex flex-col space-y-2 border-b border-foreground/70 py-2 md:space-y-3 md:py-4"
     >
-      <div className="px-4 text-lg font-semibold leading-tight">
+      <div className="px-4 font-semibold leading-tight md:text-lg">
         {artist.name}
       </div>
-      <div className="space-y-2 px-8">
+      <div className="space-y-2 px-4 md:px-8">
         {items.map((product) => (
           <CartProduct key={product.id} product={product} index={index} />
         ))}
       </div>
       <details
-        className="flex gap-x-4 border-t px-8 pt-4 text-sm"
+        className="flex gap-x-4 border-t px-4 pt-2 text-sm md:px-8 md:pt-4"
         open={isOpen}
       >
         <summary className="relative w-max" tabIndex={-1}>
@@ -92,7 +92,7 @@ export function CartProductGroup({ artist, items, index }: Props) {
         </div>
       </details>
       {tip > 0 && (
-        <div className="px-8 text-sm text-neutral-600">
+        <div className="px-4 text-sm text-neutral-600 md:px-8">
           <AnimatedNumber
             animationKey={`${index}-${tip}-${artist.username}`}
             label="Tip"
@@ -101,7 +101,7 @@ export function CartProductGroup({ artist, items, index }: Props) {
           />
         </div>
       )}
-      <div className="border-t px-8 pt-4 text-sm text-neutral-600">
+      <div className="border-t px-4 pt-2 text-sm text-neutral-600 md:px-8 md:pt-4">
         <AnimatedNumber
           animationKey={`${index}-${subtotal}-${artist.username}`}
           label="Subtotal"

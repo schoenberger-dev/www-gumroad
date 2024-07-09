@@ -104,8 +104,15 @@
   }
 
   .site-px {
-    padding-left: max(50% - 35.625rem, 4rem);
-    padding-right: max(50% - 35.625rem, 4rem);
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media screen and (min-width: 640px) {
+    .site-px {
+      padding-left: max(50% - 35.625rem, 4rem);
+      padding-right: max(50% - 35.625rem, 4rem);
+    }
   }
 
   .gumroad-hover {

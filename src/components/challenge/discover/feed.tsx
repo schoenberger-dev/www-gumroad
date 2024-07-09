@@ -15,7 +15,7 @@ export function Feed({ products }: { products: Product[] }) {
   }
 
   return (
-    <section className="site-px flex flex-col gap-y-8 md:py-16">
+    <section className="site-px flex flex-col gap-y-8 py-6 md:py-16">
       <div className="space-y-4">
         <motion.h2
           initial={{ opacity: 0, x: -6 }}

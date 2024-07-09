@@ -94,6 +94,11 @@ export const createCartStore = (initState: CartState = defaultInitState) => {
               tips.push({ artist, amount });
             }
 
+            if (amount === '0') {
+              if (artistIndex >= 0) tips.splice(artistIndex, 1);
+              else tips.splice(tips.length - 1, 1);
+            }
+
             return { tips };
           }),
       }),

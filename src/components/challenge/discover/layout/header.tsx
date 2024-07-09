@@ -19,37 +19,39 @@ export function Header() {
   }, [cart]);
 
   return (
-    <header className="site-px sticky top-0 z-10 grid border-b border-neutral-300 bg-background/90 py-6 backdrop-blur md:grid-cols-[auto_1fr_auto] md:items-center md:gap-4">
-      <h1 className="small-caps h-max text-4xl font-bold leading-[1ch]">
+    <header className="site-px sticky top-0 z-10 grid gap-4 border-b border-neutral-300 bg-background/90 py-3 backdrop-blur md:grid-cols-[auto_1fr_auto] md:items-center md:py-6">
+      <h1 className="small-caps h-max text-2xl font-bold leading-[1ch] md:text-4xl">
         gumroad
       </h1>
-      <Search />
-      <Link
-        href="/challenge/checkout"
-        className={cn(
-          buttonVariants({ variant: 'secondary' }),
-          'gumroad-hover flex h-12 items-center gap-x-1.5',
-        )}
-      >
-        <ShoppingCart className="relative h-5 w-5" />
-        <div
-          data-count={displayCount}
-          className="relative h-6 w-max overflow-hidden text-base font-semibold before:opacity-0 before:content-[attr(data-count)]"
+      <div className="grid grid-cols-[1fr_auto] gap-4">
+        <Search />
+        <Link
+          href="/challenge/checkout"
+          className={cn(
+            buttonVariants({ variant: 'secondary' }),
+            'gumroad-hover flex h-12 items-center gap-x-1.5',
+          )}
         >
-          <AnimatePresence>
-            <motion.span
-              key={displayCount}
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '-100%' }}
-              transition={{ duration: 0.4, ease: easings.OutBack }}
-              className="absolute left-0 top-0"
-            >
-              {displayCount}
-            </motion.span>
-          </AnimatePresence>
-        </div>
-      </Link>
+          <ShoppingCart className="relative h-5 w-5" />
+          <div
+            data-count={displayCount}
+            className="relative h-6 w-max overflow-hidden text-base font-semibold before:opacity-0 before:content-[attr(data-count)]"
+          >
+            <AnimatePresence>
+              <motion.span
+                key={displayCount}
+                initial={{ y: '100%' }}
+                animate={{ y: 0 }}
+                exit={{ y: '-100%' }}
+                transition={{ duration: 0.4, ease: easings.OutBack }}
+                className="absolute left-0 top-0"
+              >
+                {displayCount}
+              </motion.span>
+            </AnimatePresence>
+          </div>
+        </Link>
+      </div>
     </header>
   );
 }

@@ -11,7 +11,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import easings from '@/lib/ui/easings';
-import { AnimatedNumber } from '@/components/partials';
+import { useMediaQuery } from '@uidotdev/usehooks';
 
 export function CartProduct({
   product,
@@ -20,6 +20,7 @@ export function CartProduct({
   product: CartProduct;
   index: number;
 }) {
+  const isTablet = useMediaQuery('only screen and (min-width : 768px)');
   const [quantityIsOpen, setQuantityIsOpen] = useState<boolean>(false);
   const { setQuantity, deleteFromCart } = useCartStore((state) => state);
 
@@ -54,14 +55,15 @@ export function CartProduct({
   };
 
   return (
-    <div className="grid grid-cols-[140px_1fr] gap-x-4">
+    <div className="grid grid-cols-[56px_1fr] gap-x-3 md:grid-cols-[140px_1fr] md:gap-x-4">
       <Image
         src={imageUrl(product.image)}
         width={140}
         height={140}
         alt={`${product.name} Product Image`}
+        className="rounded-md md:rounded-none"
       />
-      <div className="flex flex-col justify-between py-4 pr-0">
+      <div className="flex flex-col justify-between pr-0 md:py-4">
         <div className="flex items-start justify-between">
           <div className="flex flex-col">
             <a href="">
@@ -82,11 +84,11 @@ export function CartProduct({
             €{product.price * product.quantity}
           </motion.div>
         </div>
-        <div className="flex items-center justify-between text-sm">
+        <div className="flex items-center justify-between pt-2 text-sm md:p-0">
           <div>
             <strong>Qty:</strong> <span>{product.quantity}</span>
           </div>
-          <div className="space-x-4">
+          <div className="space-x-2 md:space-x-4">
             <Popover
               open={quantityIsOpen}
               onOpenChange={() => setQuantityIsOpen(!quantityIsOpen)}
@@ -96,8 +98,16 @@ export function CartProduct({
                   Configure
                 </Button>
               </PopoverTrigger>
-              <PopoverContent align="start">
-                <label htmlFor={`quantity-${product.id}`}>Quantity</label>
+              <PopoverContent
+                align={isTablet ? 'start' : 'center'}
+                className="max-w-52 md:max-w-none"
+              >
+                <label
+                  htmlFor={`quantity-${product.id}`}
+                  className="text-sm md:text-base"
+                >
+                  Quantity
+                </label>
                 <Input
                   type="number"
                   value={updatedQuantity}

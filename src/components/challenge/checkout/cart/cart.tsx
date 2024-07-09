@@ -13,9 +13,13 @@ import {
   TooltipContent,
 } from '@/components/ui/tooltip';
 import { Info } from 'lucide-react';
+import { useMediaQuery } from '@uidotdev/usehooks';
 
 export function Cart() {
+  const isTablet = useMediaQuery('only screen and (min-width : 768px)');
   const { cart, tips, getItemsByArtists } = useCartStore((state) => state);
+
+  const [tipInfoOpen, setTipInfoOpen] = useState<boolean>(false);
 
   const productsByArtist = getItemsByArtists();
 
@@ -80,8 +84,15 @@ export function Cart() {
           value={tipsTotal}
           tooltip={
             <TooltipProvider>
-              <Tooltip delayDuration={300}>
-                <TooltipTrigger className="relative -top-0.5">
+              <Tooltip
+                open={tipInfoOpen}
+                onOpenChange={setTipInfoOpen}
+                delayDuration={300}
+              >
+                <TooltipTrigger
+                  className="relative -top-0.5"
+                  onClick={() => isTablet && setTipInfoOpen(!tipInfoOpen)}
+                >
                   <Info className="h-4 w-4" />
                 </TooltipTrigger>
                 <TooltipContent>

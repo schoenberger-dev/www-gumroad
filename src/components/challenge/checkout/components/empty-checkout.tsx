@@ -13,7 +13,7 @@ export function EmptyCheckout() {
         height={300}
         className="w-full"
       />
-      <h2 className="block text-center text-2xl">
+      <h2 className="block text-center text-lg md:text-2xl">
         {"You haven't added anything...yet!"}
       </h2>
       <p className="text-sm">
