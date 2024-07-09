@@ -1,8 +1,11 @@
 import { createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
 import { updateCartCountCookie } from './helpers';
+import { updateCartArtists } from './helpers/updateCartArtists';
+import { unique } from '@/lib/utils';
+import { updateCartProducts } from './helpers/updateCartProducts';
 
-type CartProductsByArtist = {
+type ArtistsCartProducts = {
   artist: Artist;
   items: CartProduct[];
 };
@@ -14,7 +17,7 @@ export type CartState = {
 
 export type CartActions = {
   artistTip: (artist: string) => string;
-  getItemsByArtists: () => CartProductsByArtist[];
+  getItemsByArtists: () => ArtistsCartProducts[];
   addToCart: (product: Product) => void;
   setQuantity: (product: Product, quantity: number) => void;
   deleteFromCart: (product: Product) => void;
@@ -32,13 +35,19 @@ export const defaultInitState: CartState = {
   tips: [],
 };
 
+const handleCookies = (updatedCart: CartProduct[]) => {
+  updateCartCountCookie(updatedCart.length);
+  updateCartArtists(updatedCart.map((item) => item.artist));
+  updateCartProducts(updatedCart.map((item) => item));
+};
+
 export const createCartStore = (initState: CartState = defaultInitState) => {
   return createStore<CartStore>()(
     persist(
       (set, get) => ({
         ...initState,
         getItemsByArtists: () =>
-          get().cart.reduce((acc: CartProductsByArtist[], product) => {
+          get().cart.reduce((acc: ArtistsCartProducts[], product) => {
             const artistGroup = acc.find(
               (i) => i.artist.username === product.artist.username,
             );
@@ -64,7 +73,8 @@ export const createCartStore = (initState: CartState = defaultInitState) => {
 
             const updatedCart = [...cart, { ...product, quantity: 1 }];
 
-            updateCartCountCookie(updatedCart.length);
+            handleCookies(updatedCart);
+
             return { cart: [...cart, { ...product, quantity: 1 }] };
           }),
         setQuantity: (product, quantity) =>
@@ -77,7 +87,9 @@ export const createCartStore = (initState: CartState = defaultInitState) => {
           set((state) => {
             const cart = [...state.cart];
             const updatedCart = cart.filter((item) => item.id !== product.id);
-            updateCartCountCookie(updatedCart.length);
+
+            handleCookies(updatedCart);
+
             return { cart: [...updatedCart] };
           }),
         setArtistTip: (artist, amount) =>

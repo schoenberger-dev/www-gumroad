@@ -13,11 +13,13 @@ import {
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/providers/auth-store-provider';
+import { useToast } from './ui/use-toast';
 
 export function CommandMenu() {
   const { token, deleteToken } = useAuthStore((state) => state);
   const [open, setOpen] = React.useState(false);
   const router = useRouter();
+  const { toast } = useToast();
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -33,7 +35,7 @@ export function CommandMenu() {
 
   return (
     <>
-      <div className="fixed bottom-2 right-2 z-10 w-max md:bottom-4 md:right-4">
+      <div className="fixed bottom-0 right-0 z-10 w-max md:bottom-4 md:right-4">
         <div className="text-foreground/75" onClick={() => setOpen(true)}>
           <Button
             variant="secondary"
@@ -54,7 +56,9 @@ export function CommandMenu() {
                 onSelect={() => {
                   deleteToken();
                   setOpen(false);
-                  // TODO: toast.success({ message: 'Successfully logged out' })
+                  toast({
+                    title: 'Successfully logged out',
+                  });
                 }}
               >
                 <LogOut className="mr-2 h-4 w-4" />

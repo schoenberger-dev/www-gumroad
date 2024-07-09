@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Wayfinder } from '@/lib/ui/fonts';
 import { ReactNode } from 'react';
 import { GeistSans } from 'geist/font/sans';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'Gumroad ✧ Niklas',
@@ -23,7 +24,10 @@ export default function RootLayout({
         <meta name="robots" content="noindex, nofollow" />
         <link rel="stylesheet" href="https://use.typekit.net/pgl2zil.css" />
       </head>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }

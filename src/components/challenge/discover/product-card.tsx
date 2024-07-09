@@ -36,10 +36,10 @@ export function ProductCard({
       initial={{ opacity: 0, y: 8, filter: 'blur(2px)' }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       transition={{
-        filter: { duration: 0.5, delay: initialDelay + index * 0.1 },
-        opacity: { duration: 0.5, delay: initialDelay + index * 0.1 },
-        y: { duration: 0.4, delay: initialDelay + index * 0.1 },
-        delay: initialDelay + index * 0.1,
+        filter: { duration: 0.5, delay: initialDelay + index * 0.08 },
+        opacity: { duration: 0.5, delay: initialDelay + index * 0.08 },
+        y: { duration: 0.4, delay: initialDelay + index * 0.08 },
+        delay: initialDelay + index * 0.08,
         ease: easings.OutExpo,
       }}
     >
@@ -91,7 +91,7 @@ export function ProductCard({
           </Badge>
           <Button
             variant="secondary"
-            className="w-full rounded-none border border-l-0 border-foreground bg-white text-foreground hover:bg-foreground hover:text-background"
+            className="relative w-full rounded-none border border-l-0 border-foreground bg-white text-foreground hover:bg-foreground hover:text-background"
             successfull={successfull}
             onClick={() => {
               addToCart(product);

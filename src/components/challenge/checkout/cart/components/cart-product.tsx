@@ -57,7 +57,7 @@ export function CartProduct({
   };
 
   return (
-    <div className="grid grid-cols-[56px_1fr] gap-x-3 md:grid-cols-[140px_1fr] md:gap-x-4">
+    <div className="grid grid-cols-[62px_1fr] gap-x-3 md:grid-cols-[140px_1fr] md:gap-x-4">
       <Image
         src={imageUrl(product.image)}
         width={140}
@@ -69,7 +69,9 @@ export function CartProduct({
         <div className="flex items-start justify-between">
           <div className="flex flex-col">
             <a href="">
-              <strong className="underline">{product.name}</strong>
+              <strong className="text-sm underline md:text-base">
+                {product.name}
+              </strong>
             </a>
             <a href="">
               <span className="text-sm underline">{product.artist.name}</span>

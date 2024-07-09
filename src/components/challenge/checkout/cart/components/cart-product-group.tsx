@@ -24,10 +24,10 @@ export function CartProductGroup({ artist, items, index }: Props) {
 
   useEffect(() => {
     const value = items.reduce(
-      (acc, item) => tip + acc + item.price * item.quantity,
+      (acc, item) => acc + item.price * item.quantity,
       0,
     );
-    setSubtotal(value.toFixed(2));
+    setSubtotal((value + tip).toFixed(2));
   }, [items, artistTip]);
 
   const handleTip = (amount: string) => {
@@ -44,7 +44,7 @@ export function CartProductGroup({ artist, items, index }: Props) {
       <div className="px-4 font-semibold leading-tight md:text-lg">
         {artist.name}
       </div>
-      <div className="space-y-2 px-4 md:px-8">
+      <div className="space-y-3 px-4 md:space-y-2 md:px-8">
         {items.map((product) => (
           <CartProduct key={product.id} product={product} index={index} />
         ))}

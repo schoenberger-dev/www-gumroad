@@ -6,19 +6,10 @@ import { useEffect, useState } from 'react';
 import { CartProductGroup } from './components';
 import { useCartStore } from '@/providers/cart-store-provider';
 import { AnimatedNumber } from '@/components/partials';
-import { Info } from 'lucide-react';
-import { useMediaQuery } from '@uidotdev/usehooks';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { TipInfo } from './components/tip-info';
 
 export function Cart() {
-  const isTablet = useMediaQuery('only screen and (min-width : 768px)');
   const { cart, tips, getItemsByArtists } = useCartStore((state) => state);
-
-  const [tipInfoOpen, setTipInfoOpen] = useState<boolean>(false);
 
   const productsByArtist = getItemsByArtists();
 
@@ -83,30 +74,7 @@ export function Cart() {
           value={tipsTotal}
           tooltip={
             parseFloat(tipsTotal) > 0 && (
-              <Popover open={tipInfoOpen} onOpenChange={setTipInfoOpen}>
-                <PopoverTrigger
-                  className="relative -top-0.5"
-                  onMouseEnter={() =>
-                    isTablet && setTimeout(() => setTipInfoOpen(true), 300)
-                  }
-                  onMouseLeave={() => isTablet && setTipInfoOpen(false)}
-                >
-                  <Info className="h-4 w-4" />
-                </PopoverTrigger>
-                <PopoverContent className="w-max p-3" side="top">
-                  <div className="space-y-1 text-sm">
-                    {tips.map((i) => (
-                      <div
-                        key={i.artist.username}
-                        className="flex w-full cursor-pointer items-center justify-between gap-x-2"
-                        onClick={() => scrollToArtist(i.artist.username)}
-                      >
-                        {i.artist.name}: <span>€{i.amount}</span>
-                      </div>
-                    ))}
-                  </div>
-                </PopoverContent>
-              </Popover>
+              <TipInfo scrollToArtist={scrollToArtist} />
             )
           }
         />
