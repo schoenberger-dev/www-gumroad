@@ -2,16 +2,23 @@ import { createStore } from 'zustand/vanilla';
 import { persist } from 'zustand/middleware';
 import { updateCartCountCookie } from './helpers';
 
+type CartProductsByArtist = {
+  artist: Artist;
+  items: CartProduct[];
+};
+
 export type CartState = {
   cart: CartProduct[];
-  tips: { artist: string; amount: string }[];
+  tips: { artist: Artist; amount: string }[];
 };
 
 export type CartActions = {
+  artistTip: (artist: string) => string;
+  getItemsByArtists: () => CartProductsByArtist[];
   addToCart: (product: Product) => void;
   setQuantity: (product: Product, quantity: number) => void;
   deleteFromCart: (product: Product) => void;
-  setArtistTip: (artist: string, amount: string) => void;
+  setArtistTip: (artist: Artist, amount: string) => void;
 };
 
 export type CartStore = CartState & CartActions;
@@ -28,8 +35,22 @@ export const defaultInitState: CartState = {
 export const createCartStore = (initState: CartState = defaultInitState) => {
   return createStore<CartStore>()(
     persist(
-      (set) => ({
+      (set, get) => ({
         ...initState,
+        getItemsByArtists: () =>
+          get().cart.reduce((acc: CartProductsByArtist[], product) => {
+            const artistGroup = acc.find(
+              (i) => i.artist.username === product.artist.username,
+            );
+            if (artistGroup) {
+              artistGroup.items.push(product);
+            } else {
+              acc.push({ artist: product.artist, items: [product] });
+            }
+            return acc;
+          }, []),
+        artistTip: (artist) =>
+          get().tips.find((i) => i.artist.username === artist)?.amount ?? '0',
         addToCart: (product) =>
           set((state) => {
             const cart = [...state.cart];
@@ -61,12 +82,19 @@ export const createCartStore = (initState: CartState = defaultInitState) => {
           }),
         setArtistTip: (artist, amount) =>
           set((state) => {
-            console.log(artist, amount);
-            return {
-              tips: state.tips.map((item) =>
-                item.artist === artist ? { artist, amount } : item,
-              ),
-            };
+            let tips = [...state.tips];
+
+            const artistIndex = tips.findIndex(
+              (item) => item.artist.username === artist.username,
+            );
+
+            if (artistIndex >= 0) {
+              tips[artistIndex] = { artist, amount };
+            } else {
+              tips.push({ artist, amount });
+            }
+
+            return { tips };
           }),
       }),
       { name: 'cart' },

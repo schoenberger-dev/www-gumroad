@@ -37,10 +37,10 @@ export function CommandMenu() {
   return (
     <>
       <div className="fixed bottom-4 right-4 w-max">
-        <div className="text-foreground/50" onClick={() => setOpen(true)}>
+        <div className="text-foreground/75" onClick={() => setOpen(true)}>
           <Button
             variant="secondary"
-            className="h-max cursor-pointer border-foreground/10 py-1.5 text-xs text-foreground/35 hover:border-primary-300 hover:text-foreground/75"
+            className="h-max cursor-pointer border-foreground/20 py-1.5 text-xs text-foreground/75 hover:border-primary-300"
           >
             Press &#8984;+K
           </Button>

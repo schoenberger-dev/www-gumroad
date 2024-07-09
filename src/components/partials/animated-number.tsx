@@ -8,6 +8,7 @@ type Props = {
   value: string | number;
   index?: number;
   className?: string;
+  tooltip?: React.ReactNode;
 };
 
 const animationTransition = {
@@ -36,6 +37,7 @@ export function AnimatedNumber({
   value,
   index = 0,
   className,
+  tooltip,
 }: Props) {
   return (
     <motion.div
@@ -48,7 +50,10 @@ export function AnimatedNumber({
       className={cn('flex justify-between px-4', className)}
     >
       <div>{label}</div>
-      <div>€{value}</div>
+      <div className="flex items-center gap-x-2">
+        {tooltip}
+        <span>€{value}</span>
+      </div>
     </motion.div>
   );
 }

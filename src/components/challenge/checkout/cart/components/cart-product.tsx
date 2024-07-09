@@ -79,7 +79,7 @@ export function CartProduct({
             variants={animationVariants}
             className="flex items-center"
           >
-            € {product.price * product.quantity}
+            €{product.price * product.quantity}
           </motion.div>
         </div>
         <div className="flex items-center justify-between text-sm">
@@ -92,10 +92,7 @@ export function CartProduct({
               onOpenChange={() => setQuantityIsOpen(!quantityIsOpen)}
             >
               <PopoverTrigger asChild>
-                <Button
-                  variant="link"
-                  className="relative h-max rounded-none p-1 text-foreground underline hover:bg-background hover:decoration-primary"
-                >
+                <Button variant="link" className="relative h-max p-1">
                   Configure
                 </Button>
               </PopoverTrigger>
@@ -118,8 +115,8 @@ export function CartProduct({
             </Popover>
             <Button
               variant="link"
+              className="h-max p-1"
               onClick={() => deleteFromCart(product)}
-              className="h-max rounded-none p-1 text-foreground underline hover:bg-background hover:decoration-primary"
             >
               Remove
             </Button>

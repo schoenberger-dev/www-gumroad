@@ -24,7 +24,7 @@ export function Payment() {
   if (isLoading) return <div>Loading...</div>;
 
   return (
-    <aside className="h-max rounded-md border border-foreground bg-white">
+    <aside className="sticky top-2 h-max rounded-md border border-foreground bg-white">
       <header className="border-b border-foreground p-4">
         <div className="font-semibold">Pay with</div>
         <div className="mt-4">

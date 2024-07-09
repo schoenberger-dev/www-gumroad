@@ -6,20 +6,18 @@ import { useEffect, useState } from 'react';
 import { CartProductGroup } from './components';
 import { useCartStore } from '@/providers/cart-store-provider';
 import { AnimatedNumber } from '@/components/partials';
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '@/components/ui/tooltip';
+import { Info } from 'lucide-react';
 
 export function Cart() {
-  const { cart, tips } = useCartStore((state) => state);
+  const { cart, tips, getItemsByArtists } = useCartStore((state) => state);
 
-  const productsByArtist: { artist: Artist; items: CartProduct[] }[] = [];
-
-  cart.forEach((product) => {
-    const artistGroup = productsByArtist.find(
-      (i) => i.artist.username === product.artist.username,
-    );
-    if (!artistGroup)
-      productsByArtist.push({ artist: product.artist, items: [product] });
-    else artistGroup.items.push(product);
-  });
+  const productsByArtist = getItemsByArtists();
 
   const [subtotal, setSubtotal] = useState<string>('0');
   const [tipsTotal, setTipsTotal] = useState<string>('0');
@@ -33,19 +31,23 @@ export function Cart() {
     );
     setSubtotal(subtotal.toFixed(2));
 
+    const vat = subtotal * 0.2;
+    setVat(vat.toFixed(2));
+
     const tipsTotal = tips.reduce(
       (acc, item) => acc + parseFloat(item.amount),
       0,
     );
-    console.log(tipsTotal);
     setTipsTotal(tipsTotal.toFixed(2));
 
-    const vat = subtotal * 0.2;
-    setVat(vat.toFixed(2));
-
-    const total = subtotal * 1.2;
+    const total = subtotal * 1.2 + tipsTotal;
     setTotal(total.toFixed(2));
-  }, [cart]);
+  }, [cart, tips]);
+
+  const scrollToArtist = (artist: string) => {
+    const element = document.getElementById(artist);
+    element?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className="relative h-max rounded-md border border-foreground bg-white">
@@ -66,16 +68,37 @@ export function Cart() {
           value={subtotal}
         />
         <AnimatedNumber
-          animationKey={`${tipsTotal}-tips`}
-          index={1}
-          label="Tips"
-          value={tipsTotal}
-        />
-        <AnimatedNumber
           animationKey={`${vat}-vat`}
           index={2}
           label="VAT"
           value={vat}
+        />
+        <AnimatedNumber
+          animationKey={`${tipsTotal}-tips`}
+          index={1}
+          label="Tips"
+          value={tipsTotal}
+          tooltip={
+            <TooltipProvider>
+              <Tooltip delayDuration={300}>
+                <TooltipTrigger className="relative -top-0.5">
+                  <Info className="h-4 w-4" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <div className="space-y-1 text-sm">
+                    {tips.map((i) => (
+                      <div
+                        className="flex w-full cursor-pointer items-center justify-between gap-x-2"
+                        onClick={() => scrollToArtist(i.artist.username)}
+                      >
+                        {i.artist.name}: <span>€{i.amount}</span>
+                      </div>
+                    ))}
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          }
         />
         <div className="flex justify-between gap-x-4 px-4">
           <Input placeholder="Discount code" className="bg-white" />

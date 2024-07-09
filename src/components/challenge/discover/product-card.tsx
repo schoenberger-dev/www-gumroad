@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { useCartStore } from '@/providers/cart-store-provider';
 import { motion } from 'framer-motion';
 import easings from '@/lib/ui/easings';
+import { useState } from 'react';
 
 export function ProductCard({
   product,
@@ -28,15 +29,16 @@ export function ProductCard({
   initialDelay: number;
 }) {
   const { addToCart } = useCartStore((state) => state);
+  const [successfull, setSuccessfull] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 6, filter: 'blur(2px)' }}
+      initial={{ opacity: 0, y: 5, filter: 'blur(2px)' }}
       animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       transition={{
         duration: 0.8,
         filter: { duration: 0.5, delay: initialDelay + index * 0.1 },
-        opacity: { duration: 0.6, delay: initialDelay + index * 0.1 },
+        opacity: { duration: 0.5, delay: initialDelay + index * 0.1 },
         delay: initialDelay + index * 0.1,
         ease: easings.OutExpo,
       }}
@@ -90,7 +92,12 @@ export function ProductCard({
           <Button
             variant="secondary"
             className="w-full rounded-none border border-l-0 border-foreground bg-white text-foreground hover:bg-foreground hover:text-background"
-            onClick={() => addToCart(product)}
+            successfull={successfull}
+            onClick={() => {
+              addToCart(product);
+              setSuccessfull(true);
+              setTimeout(() => setSuccessfull(false), 1000);
+            }}
           >
             Add to cart
           </Button>

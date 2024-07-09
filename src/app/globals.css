@@ -133,6 +133,18 @@ body {
   @apply border-border;
 }
 
+summary {
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+summary::marker {
+  display: none;
+}
+
 .gumroad-hover\:primary {
   @apply gumroad-hover border border-foreground text-primary-foreground before:bg-primary;
 }
